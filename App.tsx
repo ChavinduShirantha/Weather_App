@@ -23,9 +23,15 @@ const App = () => {
     axios({
       method: 'GET',
       url: `https://api.openweathermap.org/data/2.5/weather?q=${input}&appid=${api.key}&units=metric`,
-    }).then(res => {
-      console.log(res.data);
-    });
+    })
+      .then(res => {
+        console.log(res.data);
+        setData(res.data);
+      })
+      .catch(e => {
+        console.dir(e);
+      })
+      .finally(() => setLoading(false));
   }, [api.key, input]);
   return (
     <View style={styles.root}>
