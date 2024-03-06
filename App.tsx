@@ -5,14 +5,22 @@
  * @format
  */
 
-import React, { useCallback, useState } from "react";
-import { ActivityIndicator, ImageBackground, StyleSheet, TextInput, View } from "react-native";
+import React, {useCallback, useState} from 'react';
+import {
+  ActivityIndicator,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 
-import axios from "axios";
+import axios from 'axios';
+
 const App = () => {
-  const [input,setInput] = useState('');
-  const [loading,setLoading] = useState(false);
-  const [data,setData] = useState([]);
+  const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
   const api = {
     key: '9a2e8ebb42f78cbc76941ac42dc13e9b',
     baseUrl: 'https://openweathermap.org/data/2.5',
@@ -54,6 +62,21 @@ const App = () => {
             <ActivityIndicator size="large" color="#000" />
           </View>
         )}
+        {data && (
+          <View style={styles.infoView}>
+            <Text
+              style={
+                styles.cityCountryText
+              }>{`${data?.name}, ${data?.sys?.country}`}</Text>
+            <Text style={styles.dateText}>{new Date().toDateString()}</Text>
+            <Text style={styles.tempText}>{`${Math.round(
+              data?.main?.temp,
+            )} °C`}</Text>
+            <Text style={styles.minMaxText}>{`Min ${Math.round(
+              data?.main?.temp_min,
+            )} °C  / Max ${Math.round(data?.main?.temp_max)} °C`}</Text>
+          </View>
+        )}
       </ImageBackground>
     </View>
   );
@@ -78,6 +101,30 @@ const styles = StyleSheet.create({
     fontSize: 16,
     borderRadius: 15,
     borderBottomColor: 'rgb(0,69,162)',
+  },
+  infoView: {
+    alignItems: 'center',
+  },
+  cityCountryText: {
+    color: '#49494d',
+    fontSize: 40,
+    fontWeight: 'bold',
+  },
+  dateText: {
+    color: '#49494d',
+    fontSize: 22,
+    marginVertical: 10,
+  },
+  tempText: {
+    color: '#49494d',
+    fontSize: 45,
+    marginVertical: 10,
+  },
+  minMaxText: {
+    color: '#49494d',
+    fontSize: 22,
+    marginVertical: 10,
+    fontWeight: '500',
   },
 });
 
