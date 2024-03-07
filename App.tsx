@@ -12,7 +12,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  View,
+  View
 } from 'react-native';
 
 import axios from 'axios';
@@ -64,10 +64,11 @@ const App = () => {
         )}
         {data && (
           <View style={styles.infoView}>
+            <Text style={styles.weatherText}>{`${data?.weather[0].main}`}</Text>
             <Text
               style={
                 styles.cityCountryText
-              }>{`${data?.name}, ${data?.sys?.country}`}</Text>
+              }>{`${data?.name}, ${data?.sys.country}`}</Text>
             <Text style={styles.dateText}>{new Date().toDateString()}</Text>
             <Text style={styles.tempText}>{`${Math.round(
               data?.main?.temp,
@@ -75,6 +76,12 @@ const App = () => {
             <Text style={styles.minMaxText}>{`Min ${Math.round(
               data?.main?.temp_min,
             )} °C  / Max ${Math.round(data?.main?.temp_max)} °C`}</Text>
+            <Text style={styles.minMaxText}>{`Humidity ${Math.round(
+              data?.main?.humidity,
+            )} %`}</Text>
+            <Text style={styles.minMaxText}>{`Pressure ${Math.round(
+              data?.main?.pressure,
+            )} hPa`}</Text>
           </View>
         )}
       </ImageBackground>
@@ -104,27 +111,36 @@ const styles = StyleSheet.create({
   },
   infoView: {
     alignItems: 'center',
+    backgroundColor: '#fff',
+    paddingVertical: 20,
+    marginHorizontal: 20,
+    borderRadius: 15,
   },
   cityCountryText: {
-    color: '#49494d',
+    color: '#52528d',
     fontSize: 40,
     fontWeight: 'bold',
   },
   dateText: {
-    color: '#49494d',
+    color: '#363694',
     fontSize: 22,
     marginVertical: 10,
   },
   tempText: {
-    color: '#49494d',
+    color: '#323285',
     fontSize: 45,
     marginVertical: 10,
   },
   minMaxText: {
-    color: '#49494d',
+    color: '#3b3b85',
     fontSize: 22,
     marginVertical: 10,
     fontWeight: '500',
+  },
+  weatherText: {
+    color: '#323285',
+    fontSize: 25,
+    marginVertical: 10,
   },
 });
 
